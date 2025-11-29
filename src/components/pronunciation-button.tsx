@@ -7,6 +7,7 @@ interface PronunciationButtonProps {
   audioUrl?: string
   variant?: 'uk' | 'us'
   className?: string
+  title?: string
 }
 
 export function PronunciationButton({
