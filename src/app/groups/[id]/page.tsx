@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -33,7 +33,7 @@ export default function GroupDetailPage() {
   const [groupName, setGroupName] = useState('')
   const [showFlashcards, setShowFlashcards] = useState(false)
 
-  const fetchWords = async () => {
+  const fetchWords = useCallback(async () => {
     try {
       const response = await fetch(`/api/groups/${groupId}/words`)
       if (response.ok) {
@@ -51,13 +51,13 @@ export default function GroupDetailPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [groupId])
 
   useEffect(() => {
     if (groupId) {
       fetchWords()
     }
-  }, [groupId])
+  }, [groupId, fetchWords])
 
   const handleRemoveWord = async (wordGroupId: string) => {
     if (!confirm('Are you sure you want to remove this word from the group?')) {

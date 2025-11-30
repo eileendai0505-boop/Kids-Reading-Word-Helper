@@ -70,13 +70,33 @@ export function FlashcardViewer({ words }: { words: Word[] }) {
     }
   }, [currentIndex, reviewQueue.length])
 
+  // Save session when complete
+  const saveSession = useCallback(async () => {
+    try {
+      const response = await fetch('/api/flashcards/sessions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          totalWords: words.length,
+          knownWords: knownWords.length,
+          unknownWords: unknownWords.length,
+        }),
+      })
+      // You could handle the response here if needed
+    } catch (error) {
+      console.error('Error saving session:', error)
+    }
+  }, [words.length, knownWords.length, unknownWords.length])
+
   // Check if session is complete
   useEffect(() => {
     if (reviewQueue.length === 0 && (knownWords.length > 0 || unknownWords.length > 0)) {
       setIsComplete(true)
       saveSession()
     }
-  }, [reviewQueue.length, knownWords.length, unknownWords.length])
+  }, [reviewQueue.length, knownWords.length, unknownWords.length, saveSession])
 
   // Keyboard navigation
   useEffect(() => {
@@ -110,25 +130,6 @@ export function FlashcardViewer({ words }: { words: Word[] }) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [handleFlip, handlePrevious, handleNext, handleKnown, handleUnknown])
 
-  // Save session when complete
-  const saveSession = async () => {
-    try {
-      const response = await fetch('/api/flashcards/sessions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          totalWords: words.length,
-          knownWords: knownWords.length,
-          unknownWords: unknownWords.length,
-        }),
-      })
-      // You could handle the response here if needed
-    } catch (error) {
-      console.error('Error saving session:', error)
-    }
-  }
 
   if (isComplete) {
     return (
