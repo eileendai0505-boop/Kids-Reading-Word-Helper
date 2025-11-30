@@ -119,7 +119,7 @@ export function WordResult({ word, onWordUpdated }: WordResultProps) {
         {word.exampleSentence && (
           <div>
             <h3 className="font-semibold text-gray-700 mb-2">例句</h3>
-            <p className="text-gray-900 italic">"{word.exampleSentence}"</p>
+            <p className="text-gray-900 italic">{"\""}{word.exampleSentence}{"\""}</p>
             {word.exampleTranslation && (
               <p className="text-gray-600 text-sm mt-1">{word.exampleTranslation}</p>
             )}

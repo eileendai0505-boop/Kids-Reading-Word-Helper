@@ -159,7 +159,7 @@ export function FlashcardViewer({ words }: { words: Word[] }) {
             </div>
 
             <div className="text-lg text-gray-700">
-              Great job! You've completed your study session.
+              Great job! You{"'"}ve completed your study session.
               {unknownWords.length > 0 && (
                 <span className="block mt-2">
                   Consider reviewing the {unknownWords.length} words that need more practice.
@@ -288,7 +288,7 @@ export function FlashcardViewer({ words }: { words: Word[] }) {
                 {currentWord.exampleSentence && (
                   <div>
                     <h3 className="font-semibold text-gray-700 mb-2">例句</h3>
-                    <p className="text-gray-900 italic">"{currentWord.exampleSentence}"</p>
+                    <p className="text-gray-900 italic">{"\""}{currentWord.exampleSentence}{"\""}</p>
                     {currentWord.exampleTranslation && (
                       <p className="text-gray-600 text-sm mt-1">{currentWord.exampleTranslation}</p>
                     )}

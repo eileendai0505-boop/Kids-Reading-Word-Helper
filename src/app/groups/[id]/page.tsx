@@ -216,7 +216,7 @@ export default function GroupDetailPage() {
                 {word.exampleSentence && (
                   <div>
                     <h3 className="font-semibold text-gray-700 mb-1">例句</h3>
-                    <p className="text-gray-900 italic text-sm">"{word.exampleSentence}"</p>
+                    <p className="text-gray-900 italic text-sm">{"\""}{word.exampleSentence}{"\""}</p>
                     {word.exampleTranslation && (
                       <p className="text-gray-600 text-xs mt-1">{word.exampleTranslation}</p>
                     )}
